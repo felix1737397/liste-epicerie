@@ -39,6 +39,7 @@ dependencies:
   flutter_svg_provider: ^1.0.3
   simple_animations: ^5.0.0+2
   sqflite: ^2.1.0+1
+  mongo_dart: ^0.8.1
 
 dev_dependencies:
   flutter_test:
