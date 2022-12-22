@@ -54,11 +54,12 @@ class Item {
       id: map['_id'] is ObjectId
           ? map['_id'].toHexString()
           : map['_id'].toString(),
-      name: map['name'],
-      unit: map['unit'],
-      amount: map['amount'],
-      isBought: map['isBought'],
-      measures: Measure.fromMap(map['measures']),
+      name: map['name'] != null ? map['name'].toString() : null,
+      unit: map['unit'] != null ? map['unit'].toString() : null,
+      amount: map['amount'] != null ? map['amount'].toDouble() : null,
+      isBought: map['isBought'] != null ? map['isBought'] : false,
+      measures:
+          map['measures'] != null ? Measure.fromMap(map['measures']) : null,
     );
   }
 

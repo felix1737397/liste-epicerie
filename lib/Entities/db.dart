@@ -14,7 +14,9 @@ class MongoDatabase {
   static Future<List<Item>> getDocuments() async {
     try {
       List<Item> items = [];
-      await connect();
+      if (db == null) {
+        await connect();
+      }
       var docs = await userCollection.find().toList();
       for (var doc in docs) {
         items.add(Item.fromMap(doc));
@@ -28,7 +30,9 @@ class MongoDatabase {
 
   static insert(Item item) async {
     try {
-      await connect();
+      if (db == null) {
+        await connect();
+      }
       await userCollection.insert(item.toMap());
     } catch (e) {
       print(e);
@@ -37,9 +41,11 @@ class MongoDatabase {
 
   static update(Item item) async {
     try {
-      await connect();
+      if (db == null) {
+        await connect();
+      }
       await userCollection.update(
-        where.id(ObjectId.parse(item.id!)),
+        where.id(ObjectId.fromHexString(item.id!)),
         item.toMap(withId: false),
       );
     } catch (e) {
@@ -49,7 +55,9 @@ class MongoDatabase {
 
   static delete(Item item) async {
     try {
-      await connect();
+      if (db == null) {
+        await connect();
+      }
       await userCollection.remove(where.id(ObjectId.parse(item.id!)));
     } catch (e) {
       print(e);
